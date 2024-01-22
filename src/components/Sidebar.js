@@ -1,13 +1,10 @@
-import SidebarList from "./SidebarList";
-
-function Sidebar({ task }) {
+function Sidebar({ children }) {
   return (
-    <div className="bg-slate-100 w-96 h-screen shadow-[0_3px_10px_rgb(0,0,0,0.2)]  ">
-      <h1 className="text-4xl ml-4 mt-4 font-karla">Menu</h1>
-
-      <ul className=" flex flex-col gap-7 text-xl ml-10 mt-4 align-bottom font-wsans">
-        <SidebarList task={task} />
-      </ul>
+    <div className="flex flex-col basis-2/12 bg-cyan-500 h-screen rounded-r-xl gap-4 shrink-0 left-0 top-0 sticky  max-xl:hidden">
+      <h1 className="mt-5 ml-4 font-roboto text-3xl text-cyan-50">
+        TO-DO Menu
+      </h1>
+      <ul className="flex flex-col  text-xl">{children}</ul>
     </div>
   );
 }

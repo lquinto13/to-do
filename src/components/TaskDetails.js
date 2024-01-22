@@ -1,8 +1,21 @@
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil, faX } from "@fortawesome/free-solid-svg-icons";
+import "react-time-picker/dist/TimePicker.css";
+import "react-clock/dist/Clock.css";
 
-function TaskDetails({ task, selectedId, onOpen, onSetTask, onDelete }) {
+function TaskDetails({
+  task,
+  selectedId,
+  onToggleDone,
+  onSetTask,
+  onDelete,
+  onOpen,
+}) {
   const [selectedTask, setSelectedTask] = useState([]);
   const [taskDetail, setTaskDetail] = useState("");
+  const [isDisabled, setIsDisbled] = useState(true);
+
   useEffect(
     function () {
       async function fetchDetails() {
@@ -16,7 +29,7 @@ function TaskDetails({ task, selectedId, onOpen, onSetTask, onDelete }) {
 
   function handleSubmitDetail(e) {
     e.preventDefault();
-
+    if (!taskDetail) return;
     setTaskDetail(
       onSetTask(
         task.map((detail) =>
@@ -24,61 +37,100 @@ function TaskDetails({ task, selectedId, onOpen, onSetTask, onDelete }) {
         )
       )
     );
-    console.log(task);
     setTaskDetail("");
   }
 
   return (
-    <div className="relative bg-slate-100 w-6/12 h-screen shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
-      <button
+    <>
+      <div
+        className="absolute w-screen h-screen opacity-70 bg-black"
         onClick={() => onOpen(selectedId)}
-        className="absolute top-0 right-0 h-16 w-16 text-red-700 font-wsans"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-8 h-8"
+      ></div>
+      <div className="abs-center  bg-cyan-50 p-8 h-1/2 max-xl:w-96 w-[30%] border-8 border-cyan-50 rounded-xl shadow-xl ">
+        <button
+          className="absolute right-8 cursor-pointer z-50"
+          onClick={() => onOpen(selectedId)}
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-          />
-        </svg>
-      </button>
-      <div className="ml-4 mt-4 mr-4">
-        <h1 className="text-4xl  font-karla">Task:</h1>
-        <p className="text-2xl mt-8 font-karla">{selectedTask?.description}</p>
-        <form onSubmit={handleSubmitDetail}>
+          <FontAwesomeIcon icon={faX} className="fa-lg" />
+        </button>
+        <div className="relative  flex items-center">
           <input
-            className="mt-4 w-96 bg-slate-100 focus:outline-none py-4 px-4"
-            placeholder="Add Detail"
-            value={taskDetail}
-            onChange={(e) => setTaskDetail(e.target.value)}
+            className={`text-3xl w-[80%] py-3 border-2 rounded-md font-roboto pl-4 ${
+              isDisabled === true
+                ? "placeholder:text-slate-900"
+                : "placeholder:text-slate-400"
+            }`}
+            placeholder={selectedTask?.description}
+            disabled={isDisabled}
           />
-          <p className="text-xl">{selectedTask?.details}</p>
-        </form>
+          <FontAwesomeIcon
+            onClick={() => setIsDisbled(!isDisabled)}
+            icon={faPencil}
+            className="ml-5 fa-xl cursor-pointer"
+          />
+        </div>
+        <section className="mt-5 relative">
+          <form>
+            <textarea
+              onChange={(e) => setTaskDetail(e.target.value)}
+              className="w-full pl-4 pt-2 h-48 border-8   border-white resize-none "
+              type="text-area"
+              defaultValue={selectedTask.details}
+              placeholder="Add Details...."
+              rows={4}
+              cols={20}
+            />
 
-        <span className=" flex gap-7 text-xl font-karla">
+            <button
+              onClick={handleSubmitDetail}
+              className="px-4 py-2 bg-cyan-500 border-2 border-cyan-500 rounded-md text-cyan-50"
+            >
+              <strong>Submit</strong>
+            </button>
+          </form>
+        </section>
+        <div className="flex gap-4 justify-end">
           <button
             onClick={() => onDelete(selectedId)}
-            className="mt-8   basis-1/2 rounded-md  shadow-lg h-14 bg-red-400 hover:bg-red-600 hover:text-slate-100"
+            className="right-0 px-4 py-2 bg-cyan-50 border-2 border-slate-500 rounded-md text-slate-800"
           >
-            Delete Task
+            <strong>Delete Task</strong>
           </button>
           <button
-            className="mt-8 basis-1/2 h-14 rounded-md shadow-lg bg-amber-200  hover:bg-amber-400 hover:text-slate-100"
-            onClick={handleSubmitDetail}
+            onClick={() => onToggleDone(selectedId)}
+            className="right-0 px-4 py-2 bg-cyan-500 border-2 border-cyan-500 rounded-md text-cyan-50"
           >
-            Save Changes
+            {selectedTask.done === false ? (
+              <strong>Finish Task</strong>
+            ) : (
+              <strong>Restart Task</strong>
+            )}
           </button>
-        </span>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export default TaskDetails;
+
+/* <button
+onClick={() => onToggleDone(selectedId)}
+className="px-5 py-2 border rounded-full mt-10 max-xl:mt-5 bg-slate-50"
+>
+Finish Task
+</button>
+<span className="absolute bottom-5 max-xl:right-5 flex max-xl:flex-col gap-5  font-karla">
+<button
+  onClick={() => onDelete(selectedId)}
+  className="p-8 rounded-md  f qont-roboto shadow-lg  bg-red-400 hover:bg-red-600 hover:text-slate-100"
+>
+  Delete Task
+</button>
+<button
+  className="p-8  rounded-md font-roboto shadow-lg bg-amber-200  hover:bg-amber-400 hover:text-slate-100"
+  onClick={handleSubmitDetail}
+>
+  Save Changes
+</button>
+</span> */

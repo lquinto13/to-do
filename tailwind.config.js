@@ -6,6 +6,7 @@ module.exports = {
       fontFamily: {
         wsans: "'Work Sans', sans-serif",
         karla: "'Karla', sans-serif",
+        roboto: "'Roboto', sans-serif",
       },
     },
   },

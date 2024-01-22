@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    font-family: "Proxima Nova", system-ui, sans-serif;
+@layer components {
+  .list-card {
+    @apply relative mt-10 ml-9 h-32 border-l-[12px] border-2 bg-stone-50 border-cyan-50 rounded-lg mb-5 odd:border-l-cyan-500 even:border-l-cyan-700 shadow-xl;
+  }
+  .abs-center {
+    @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
   }
 }
