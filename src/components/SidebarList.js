@@ -13,7 +13,7 @@ function SidebarList({ task }) {
   return (
     <>
       <Link to="/today">
-        <li className="relative group cursor-pointer text-cyan-50 hover:bg-cyan-50 hover:text-cyan-300  pl-4 py-5">
+        <li className="relative group cursor-pointer text-cyan-50 hover:bg-cyan-50 hover:text-cyan-300 pl-4 py-5 duration-250">
           <span>
             <FontAwesomeIcon icon={faList} />
             <span className="ml-3 ">
@@ -31,16 +31,16 @@ function SidebarList({ task }) {
           </span>
         </li>
       </Link>
-      <Link>
-        <li className="cursor-pointer  text-cyan-50 hover:bg-cyan-50 hover:text-cyan-300 pl-4 py-5">
-          <span className="">
+      <Link to="/stickywall">
+        <li className="cursor-pointer  text-cyan-50 hover:bg-cyan-50 hover:text-cyan-300 pl-4 py-5 duration-250">
+          <span>
             <FontAwesomeIcon icon={faNoteSticky} />
             <span className="ml-3">Sticky Wall</span>
           </span>
         </li>
       </Link>
       <Link to="/calendar">
-        <li className="text-cyan-50 hover:bg-cyan-50 hover:text-cyan-300 pl-4 py-5">
+        <li className="text-cyan-50 hover:bg-cyan-50 hover:text-cyan-300 pl-4 py-5 duration-250">
           <span className="cursor-pointer">
             <FontAwesomeIcon icon={faCalendar} />
             <span className="ml-3">Calendar</span>

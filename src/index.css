@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+  .sticky-note {
+    /* @apply bg-cyan-500  h-[26rem] mt-10 border-5 border-cyan-500 rounded-lg p-4; */
+    @apply bg-cyan-500 h-[26rem] mt-10 border-4 border-cyan-500 rounded-lg p-4;
+  }
   .list-card {
     @apply relative mt-10 ml-9 h-32 border-l-[12px] border-2 bg-stone-50 border-cyan-50 rounded-lg mb-5 odd:border-l-cyan-500 even:border-l-cyan-700 shadow-xl;
   }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { days, months } from "../constants/index";
+import { days } from "../constants/index";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
@@ -22,13 +22,9 @@ function Calendar() {
   dayjs.extend(weekOfYear);
   dayjs.extend(weekday);
 
-  // const [monthNum, setMonthNum] = useState(date.getMonth());
-  // const [year, setYear] = useState(date.getFullYear());
-  // const [monthWord, setMonthWord] = useState(months[date.getMonth()]);
   function incrementMonthAndYear() {
     let nextMonth = month + 1;
-
-    if (nextMonth === 12) {
+    if (nextMonth === 13) {
       nextMonth = 1;
       setYear(year + 1);
       setMonth(nextMonth);
@@ -50,7 +46,6 @@ function Calendar() {
   function decrementMonthAndYear() {
     let nextMonth = month - 1;
     let nextYear = year;
-
     if (nextMonth === 0) {
       nextMonth = 12;
       setYear(nextYear - 1);
@@ -151,34 +146,39 @@ function Calendar() {
   ];
 
   return (
-    <div className="flex flex-col p-4 items-center w-screen">
-      <span className="flex gap-5 items-center fa-lg select-none">
+    <div className="flex flex-col p-4 items-center w-screen border-2">
+      <span className="flex gap-5 items-center justify-center fa-lg select-none bg-cyan-500 w-full p-4 border-5 border-cyan-500 rounded-lg shadow-lg">
         <FontAwesomeIcon
           icon={faArrowLeft}
           onClick={decrementMonthAndYear}
-          className="cursor-pointer"
+          className="cursor-pointer text-cyan-50"
         />
-        <h1 className="flex text-4xl w-96 justify-center ">
+        <h1 className="flex text-4xl w-full justify-center text-cyan-50">
           <strong>
             {monthWords} {year}
           </strong>
         </h1>
         <FontAwesomeIcon
           icon={faArrowRight}
-          className="cursor-pointer"
+          className="cursor-pointer text-cyan-50"
           onClick={incrementMonthAndYear}
         />
       </span>
-      <div>
-        <ol className="grid grid-cols-7 border-4 gap-3 mt-2">
+      <div className="w-full">
+        <ol className="grid grid-cols-7  items-center gap-3 mt-2">
           {days.map((day) => (
             <li key={day} className="text-2xl ">
               <strong>{day}</strong>
             </li>
           ))}
           {calendarGridDayObjects.map((days, index) => (
-            <l1 className="h-24" key={index}>
-              {days.dayOfMonth}
+            <l1
+              className={`h-24 border-4 border-slate-900 ${
+                days.isCurrentMonth ? "text-slate-900" : "text-gray-500"
+              }`}
+              key={index}
+            >
+              <span className="ml-3">{days.dayOfMonth}</span>
             </l1>
           ))}
         </ol>
