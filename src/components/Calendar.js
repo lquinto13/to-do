@@ -3,6 +3,7 @@ import { days } from "../constants/index";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import CalendarGrid from "./CalendarGrid";
 
 function Calendar() {
   const INITIAL_YEAR = dayjs().format("YYYY");
@@ -146,7 +147,7 @@ function Calendar() {
   ];
 
   return (
-    <div className="flex flex-col p-4 items-center w-screen border-2">
+    <div className="flex flex-col p-4 items-center w-screen font-roboto border-5 border-cyan-500">
       <span className="flex gap-5 items-center justify-center fa-lg select-none bg-cyan-500 w-full p-4 border-5 border-cyan-500 rounded-lg shadow-lg">
         <FontAwesomeIcon
           icon={faArrowLeft}
@@ -165,21 +166,14 @@ function Calendar() {
         />
       </span>
       <div className="w-full">
-        <ol className="grid grid-cols-7  items-center gap-3 mt-2">
+        <ol className="grid grid-cols-7 py-3 items-center gap-3  mt-2">
           {days.map((day) => (
             <li key={day} className="text-2xl ">
               <strong>{day}</strong>
             </li>
           ))}
           {calendarGridDayObjects.map((days, index) => (
-            <l1
-              className={`h-24 border-4 border-slate-900 ${
-                days.isCurrentMonth ? "text-slate-900" : "text-gray-500"
-              }`}
-              key={index}
-            >
-              <span className="ml-3">{days.dayOfMonth}</span>
-            </l1>
+            <CalendarGrid days={days} index={index} />
           ))}
         </ol>
       </div>

@@ -1,7 +1,5 @@
-import Sidebar from "../components/Sidebar";
 import TaskToday from "../components/TaskToday";
 import { useState } from "react";
-import SidebarList from "../components/SidebarList";
 import TaskDetails from "../components/TaskDetails";
 
 function AppLayout({ task, setTask }) {
@@ -50,10 +48,7 @@ function AppLayout({ task, setTask }) {
   }
 
   return (
-    <div className="flex max-xl:flex-col flex-row bg-cyan-50 ">
-      <Sidebar>
-        <SidebarList task={task} />
-      </Sidebar>
+    <div className="w-screen px-4">
       <TaskToday
         task={task}
         handleSubmit={handleSubmit}

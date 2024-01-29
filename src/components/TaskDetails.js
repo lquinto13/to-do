@@ -43,10 +43,10 @@ function TaskDetails({
   return (
     <>
       <div
-        className="absolute w-screen h-screen opacity-70 bg-black"
+        className="fixed top-0 left-0 w-screen h-screen opacity-70  bg-black"
         onClick={() => onOpen(selectedId)}
       ></div>
-      <div className="abs-center  bg-cyan-50 p-8 h-1/2 max-xl:w-96 w-[30%] border-8 border-cyan-50 rounded-xl shadow-xl ">
+      <div className="abs-center fixed  bg-cyan-50 p-8 h-1/2 max-xl:w-96 w-[30%] border-8 border-cyan-50 rounded-xl shadow-xl ">
         <button
           className="absolute right-8 cursor-pointer z-50"
           onClick={() => onOpen(selectedId)}

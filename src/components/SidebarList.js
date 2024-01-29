@@ -1,52 +1,42 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faNoteSticky,
-  faCalendar,
-  faList,
-} from "@fortawesome/free-solid-svg-icons";
-import { sideLinks } from "../constants";
+
 import { Link } from "react-router-dom";
+import { sideLinks } from "../constants/index";
+import { useState } from "react";
 
 function SidebarList({ task }) {
-  const finishedTask = task.filter((task) => task.done === false);
+  const [currentPage, setCurrentPage] = useState("");
+  const finishedTask = task.filter((task) => task.done === false).length;
+  function findCurrentPage(page) {
+    setCurrentPage(page);
+  }
 
   return (
     <>
-      <Link to="/today">
-        <li className="relative group cursor-pointer text-cyan-50 hover:bg-cyan-50 hover:text-cyan-300 pl-4 py-5 duration-250">
-          <span>
-            <FontAwesomeIcon icon={faList} />
-            <span className="ml-3 ">
-              <span>Today</span>
+      {sideLinks.map((item) => (
+        <Link to={item.link} key={item.id}>
+          <li
+            onClick={() => findCurrentPage(item.label)}
+            className={`relative group cursor-pointer text-cyan-50 hover:sidebar-opp pl-4 py-5 duration-250 ${
+              item.label === currentPage ? "sidebar-opp text-cyan-500" : ""
+            }`}
+          >
+            <FontAwesomeIcon icon={item.icon} />
+            <span className="ml-3 ">{item.label}</span>
+            {item.id === 1 && (
               <span
                 className={`${
-                  finishedTask.length
+                  finishedTask
                     ? "border-2 text-sm font-wsans rounded-sm px-4 py-1 absolute right-5 top-5 group-hover:border-cyan-300"
                     : ""
                 }`}
               >
-                {finishedTask.length === 0 ? null : finishedTask.length}
+                {finishedTask === 0 ? null : finishedTask}
               </span>
-            </span>
-          </span>
-        </li>
-      </Link>
-      <Link to="/stickywall">
-        <li className="cursor-pointer  text-cyan-50 hover:bg-cyan-50 hover:text-cyan-300 pl-4 py-5 duration-250">
-          <span>
-            <FontAwesomeIcon icon={faNoteSticky} />
-            <span className="ml-3">Sticky Wall</span>
-          </span>
-        </li>
-      </Link>
-      <Link to="/calendar">
-        <li className="text-cyan-50 hover:bg-cyan-50 hover:text-cyan-300 pl-4 py-5 duration-250">
-          <span className="cursor-pointer">
-            <FontAwesomeIcon icon={faCalendar} />
-            <span className="ml-3">Calendar</span>
-          </span>
-        </li>
-      </Link>
+            )}
+          </li>
+        </Link>
+      ))}
     </>
   );
 }

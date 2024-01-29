@@ -1,6 +1,6 @@
 function Sidebar({ children }) {
   return (
-    <div className="flex flex-col basis-2/12 bg-cyan-500 h-screen rounded-r-xl gap-4 shrink-0 left-0 top-0 sticky  max-xl:hidden">
+    <div className="flex flex-col w-64 bg-cyan-500 h-screen rounded-r-xl gap-4 shrink-0 left-0 top-0 sticky  max-xl:hidden">
       <h1 className="mt-5 ml-4 font-roboto text-3xl text-cyan-50">
         TO-DO Menu
       </h1>
