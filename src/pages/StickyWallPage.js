@@ -1,10 +1,6 @@
-import { useState } from "react";
-
 import StickyNotes from "../components/StickyNotes";
 
-function SticykWall({ task }) {
-  const [stickyNotes, setStickyNotes] = useState([]);
-
+function SticykWall({ setStickyNotes, stickyNotes }) {
   function addNote() {
     const newStickNote = {
       id: Date.now(),

@@ -1,7 +1,7 @@
 import Calendar from "../components/Calendar";
 
-function CalendarPage({ task, setTask }) {
-  return <Calendar />;
+function CalendarPage({ task }) {
+  return <Calendar task={task} />;
 }
 
 export default CalendarPage;

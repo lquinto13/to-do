@@ -1,6 +1,6 @@
-function CalendayGrid({ days, index }) {
+function CalendayGrid({ days, index, children }) {
   return (
-    <l1
+    <li
       className={`h-28 border-2 border-slate-900 ${
         days.isCurrentMonth ? "text-slate-900" : "text-gray-300"
       }`}
@@ -9,7 +9,14 @@ function CalendayGrid({ days, index }) {
       <span className="ml-3">
         <strong>{days.dayOfMonth}</strong>
       </span>
-    </l1>
+      {days.doesUserHaveTask ? (
+        <div className=" mt-4 cursor-pointer text-white bg-cyan-500 p-[4px] text-center shadow-md hover:mt-2 ">
+          You have a task today
+        </div>
+      ) : (
+        ""
+      )}
+    </li>
   );
 }
 

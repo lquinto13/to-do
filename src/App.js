@@ -10,6 +10,7 @@ import AppLayout from "./pages/AppLayout";
 
 function App() {
   const [task, setTask] = useState([]);
+  const [stickyNotes, setStickyNotes] = useState([]);
 
   return (
     <BrowserRouter>
@@ -21,7 +22,12 @@ function App() {
           />
           <Route
             path="stickywall"
-            element={<StickyWallPage task={task} setTask={setTask} />}
+            element={
+              <StickyWallPage
+                stickyNotes={stickyNotes}
+                setStickyNotes={setStickyNotes}
+              />
+            }
           />
           <Route
             path="calendar"

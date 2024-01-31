@@ -3,8 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { sideLinks } from "../constants/index";
 import { useState } from "react";
+import dayjs from "dayjs";
 
 function SidebarList({ task }) {
+  var localizedFormat = require("dayjs/plugin/localizedFormat");
+
+  dayjs.extend(localizedFormat);
   const [currentPage, setCurrentPage] = useState("");
   const finishedTask = task.filter((task) => task.done === false).length;
   function findCurrentPage(page) {

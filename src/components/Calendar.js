@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import CalendarGrid from "./CalendarGrid";
 
-function Calendar() {
+function Calendar({ task }) {
   const INITIAL_YEAR = dayjs().format("YYYY");
   const INITIAL_MONTH = dayjs().format("M");
   const [month, setMonth] = useState(Number(INITIAL_MONTH));
@@ -14,7 +14,6 @@ function Calendar() {
       .month(INITIAL_MONTH - 1)
       .format("MMMM")
   );
-
   const [year, setYear] = useState(Number(INITIAL_YEAR));
 
   var weekday = require("dayjs/plugin/weekday");
@@ -73,10 +72,13 @@ function Calendar() {
 
   function createDaysForCurrentMonth(year, month) {
     return [...Array(getNumberOfDaysInMonth(year, month))].map((day, index) => {
+      const dateString = dayjs(`${year}-${month}-${index + 1}`).format("L");
+      const daysWithTask = task.filter((task) => task.date === dateString);
       return {
-        dateString: dayjs(`${year}-${month}-${index + 1}`).format("YYYY-MM-DD"),
+        dateString: dateString,
         dayOfMonth: index + 1,
         isCurrentMonth: true,
+        doesUserHaveTask: daysWithTask.length !== 0,
       };
     });
   }
@@ -96,12 +98,13 @@ function Calendar() {
       .date();
 
     return [...Array(visibleNumberOfDaysFromPreviousMonth)].map((_, index) => {
+      const dateString = dayjs(
+        `${previousMonth.year()}-${previousMonth.month() + 1}-${
+          previousMonthLastMondayDayOfMonth + index
+        }`
+      ).format("L");
       return {
-        dateString: dayjs(
-          `${previousMonth.year()}-${previousMonth.month() + 1}-${
-            previousMonthLastMondayDayOfMonth + index
-          }`
-        ).format("YYYY-MM-DD"),
+        dateString: dateString,
         dayOfMonth: previousMonthLastMondayDayOfMonth + index,
         isCurrentMonth: false,
         isPreviousMonth: true,
@@ -172,8 +175,9 @@ function Calendar() {
               <strong>{day}</strong>
             </li>
           ))}
+
           {calendarGridDayObjects.map((days, index) => (
-            <CalendarGrid days={days} index={index} />
+            <CalendarGrid days={days} index={index} key={index} />
           ))}
         </ol>
       </div>

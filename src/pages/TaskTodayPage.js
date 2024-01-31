@@ -1,11 +1,14 @@
 import TaskToday from "../components/TaskToday";
 import { useState } from "react";
 import TaskDetails from "../components/TaskDetails";
+import dayjs from "dayjs";
 
 function AppLayout({ task, setTask }) {
   const [taskDescription, setTaskDescription] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+
+  const date = dayjs().format("L");
   function handleDelete(id) {
     const confirmed = window.confirm(
       "Are you sure you want to delete this task"
@@ -32,6 +35,7 @@ function AppLayout({ task, setTask }) {
       description: taskDescription,
       id: Date.now(),
       done: false,
+      date: date,
     };
     if (newTask.description === "") return;
 
@@ -52,13 +56,9 @@ function AppLayout({ task, setTask }) {
       <TaskToday
         task={task}
         handleSubmit={handleSubmit}
-        onDelete={handleDelete}
         taskDescription={taskDescription}
         onSetTaskDescription={setTaskDescription}
         onOpen={handleOpen}
-        isOpen={isOpen}
-        selectedId={selectedId}
-        onSetTask={setTask}
       />
       {isOpen === true ? (
         <TaskDetails
@@ -66,7 +66,6 @@ function AppLayout({ task, setTask }) {
           selectedId={selectedId}
           onToggleDone={handleToggleDone}
           onOpen={handleOpen}
-          isOpen={isOpen}
           onSetTask={setTask}
           onDelete={handleDelete}
         />
