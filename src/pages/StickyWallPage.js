@@ -9,10 +9,15 @@ function SticykWall({ setStickyNotes, stickyNotes }) {
     };
     setStickyNotes((stickyNote) => [...stickyNote, newStickNote]);
   }
+
   return (
     <ul className="mx-5 basis-10/12 grid grid-cols-4 gap-4 pb-4">
       {stickyNotes.map((note, i) => (
-        <StickyNotes note={note} />
+        <StickyNotes
+          note={note}
+          stickyNotes={stickyNotes}
+          setStickyNotes={setStickyNotes}
+        />
       ))}
       <li
         onClick={addNote}
