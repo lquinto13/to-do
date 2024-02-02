@@ -7,11 +7,11 @@ import CalendarPage from "./pages/CalendarPage";
 import TaskTodayPage from "./pages/TaskTodayPage";
 import StickyWallPage from "./pages/StickyWallPage";
 import AppLayout from "./pages/AppLayout";
+import TaskPage from "./pages/TaskPage";
 
 function App() {
   const [task, setTask] = useState([]);
   const [stickyNotes, setStickyNotes] = useState([]);
-
   return (
     <BrowserRouter>
       <Routes>
@@ -32,6 +32,10 @@ function App() {
           <Route
             path="calendar"
             element={<CalendarPage task={task} setTask={setTask} />}
+          />
+          <Route
+            path="task/:date"
+            element={<TaskPage task={task} setTask={setTask} />}
           />
         </Route>
       </Routes>

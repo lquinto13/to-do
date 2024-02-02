@@ -73,12 +73,15 @@ function Calendar({ task }) {
   function createDaysForCurrentMonth(year, month) {
     return [...Array(getNumberOfDaysInMonth(year, month))].map((day, index) => {
       const dateString = dayjs(`${year}-${month}-${index + 1}`).format("L");
-      const daysWithTask = task.filter((task) => task.date === dateString);
+      const daysWithTask = task.filter(
+        (task) => task.date === dateString && task.done === false
+      );
       return {
         dateString: dateString,
         dayOfMonth: index + 1,
         isCurrentMonth: true,
         doesUserHaveTask: daysWithTask.length !== 0,
+        task: { ...daysWithTask },
       };
     });
   }

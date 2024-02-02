@@ -7,10 +7,13 @@ import dayjs from "dayjs";
 
 function SidebarList({ task }) {
   var localizedFormat = require("dayjs/plugin/localizedFormat");
+  const now = dayjs().format("L");
 
   dayjs.extend(localizedFormat);
   const [currentPage, setCurrentPage] = useState("");
-  const finishedTask = task.filter((task) => task.done === false).length;
+  const finishedTaskToday = task.filter(
+    (task) => task.done === false && task.date === now
+  ).length;
   function findCurrentPage(page) {
     setCurrentPage(page);
   }
@@ -30,12 +33,12 @@ function SidebarList({ task }) {
             {item.id === 1 && (
               <span
                 className={`${
-                  finishedTask
+                  finishedTaskToday
                     ? "border-2 text-sm font-wsans rounded-sm px-4 py-1 absolute right-5 top-5 group-hover:border-cyan-300"
                     : ""
                 }`}
               >
-                {finishedTask === 0 ? null : finishedTask}
+                {finishedTaskToday === 0 ? null : finishedTaskToday}
               </span>
             )}
           </li>

@@ -12,7 +12,7 @@ function ModalForm({
         onChange={(e) => setTaskDetail(e.target.value)}
         className="w-full pl-4 pt-2 h-48 border-8   border-white resize-none "
         type="text-area"
-        defaultValue={selectedTask.details}
+        defaultValue={selectedTask?.details}
         placeholder="Add Details...."
         rows={4}
         cols={20}

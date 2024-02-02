@@ -64,13 +64,16 @@ function TaskDetails({
           />
         </section>
         <div className="flex gap-4 justify-end">
-          <ButtonDelete onDelete={onDelete}> Delete Task</ButtonDelete>
+          <ButtonDelete onDelete={onDelete} selectedId={selectedId}>
+            {" "}
+            Delete Task
+          </ButtonDelete>
           <ButtonAdd
             selectedTask={selectedTask}
             onHandleClick={() => onToggleDone(selectedId)}
             selectedId={selectedId}
           >
-            {selectedTask.done === false ? (
+            {selectedTask?.done === false ? (
               <strong>Finish Task</strong>
             ) : (
               <strong>Restart Task</strong>
